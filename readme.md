@@ -4,7 +4,7 @@
        // Логика обработки заказа
        decimal total = 0;
 
-       foreach (string item in items)
+foreach (string item in items)
        {
            switch (item)
            {
@@ -27,7 +27,7 @@
        } 
        заменила var на string, if else на switch case, использовала более краткую форму total+=
 
-     void ProcessPayment()
+void ProcessPayment()
      {
          switch (paymentMethod)
          {
@@ -43,14 +43,14 @@
      } 
      тут я указала имя метода, замениоа if else на switch case, добавила форматирование валюты ({amount:C}), убрала комментарий, потому что он больше не требуется.
 
-          void ValidateOrderData()
+void ValidateOrderData()
      {
          if (string.IsNullOrWhiteSpace(customerName))
          {
              throw new ArgumentException("Данные заказчика указаны некорректно!", nameof(customerName));
          }
 
-         if (items == null || items.Count == 0)
+if (items == null || items.Count == 0)
          {
              throw new ArgumentException("Не выбраны позиции для заказа!", nameof(items));
          }
@@ -71,7 +71,7 @@
  } 
  тут я вынесла логику создания заказа в отдельный метод, разделила инициализацию для лучшей читаемости.
 
-     void SendOrderNotification()
+ void SendOrderNotification()
     {
         const string smtpHost = "smtp.gmail.com";
         const int smtpPort = 587;
@@ -79,18 +79,18 @@
         const string senderName = "LomovaLA";
         const string recipientEmail = "lomovala@gmail.com";
 
-        using (SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort))
+using (SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort))
         {
             MailAddress fromAddress = new MailAddress(senderEmail, senderName);
             MailAddress toAddress = new MailAddress(recipientEmail);
 
-            using (MailMessage mailMessage = new MailMessage(fromAddress, toAddress))
+ using (MailMessage mailMessage = new MailMessage(fromAddress, toAddress))
             {
                 mailMessage.Subject = "Новый заказ";
                 mailMessage.Body = $"<h2>Новый заказ для {customerName} общей стоимостью {total:C}.</h2>";
                 mailMessage.IsBodyHtml = true;
 
-                smtpClient.Send(mailMessage);
+  smtpClient.Send(mailMessage);
             }
         }
     }
@@ -103,14 +103,13 @@ void LogOrder()
         File.WriteAllText(@".\logs\order.txt", logEntry);
     }
 
-    убрала комментарий.
-
-       void ApplyDiscount()
+убрала комментарий.
+void ApplyDiscount()
        {
            const decimal discountRate = 0.9m; 
            const int minItemsForDiscount = 2;
 
-           if (items.Count > minItemsForDiscount)
+if (items.Count > minItemsForDiscount)
            {
                total *= discountRate;
            }
